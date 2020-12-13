@@ -8,9 +8,13 @@ const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
 
-const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly','https://www.googleapis.com/auth/gmail.send','https://www.googleapis.com/auth/gmail.modify','https://mail.google.com/'];
 var toke;
 var token;
+
+const mp = {};
+
+
 const {client_secret, client_id, redirect_uris} = cred.installed;
   const oAuth2Client = new google.auth.OAuth2(
       client_id, client_secret, redirect_uris[0]);
@@ -71,8 +75,16 @@ function listmessages(token,auth) {
           const from = res.data.payload.headers;
           if(from.length){
             from.map((obj)=>{
-              if(obj.name==="From")
-              console.log(obj.value);
+              if(obj.name==="From"){
+                if(obj.value in mp){
+                  mp.push(label.id);
+                }
+                else{
+                  mp[obj.value]=[];
+                  mp[obj.value].push(label.id);
+                }
+              
+              console.log(obj.value);}
             });
           }
         })
@@ -82,6 +94,17 @@ function listmessages(token,auth) {
     }
   });
 }
+
+app.get('/del',(req,res)=>{
+  const gmail = google.gmail({version: 'v1', auth });
+  gmail.users.messages.batchDelete({
+    userId: 'me',
+    id: mp.req.query.value
+  }, (err, res) => {
+    if (err) return console.log('The API returned an error: ' + err);
+    else res.statusText("Success");
+  });
+})
 
 app.get('/',(req,res)=>{
   
