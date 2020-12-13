@@ -1,0 +1,33 @@
+{
+  "name": "mail-man",
+  "version": "1.0.0",
+  "description": "A real time mail management application which can delete and create mails fetching and reading mails for you directly from you gmail application via the Gmail Api. Dedicated to always and forever AM.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "keywords": [
+    "Mail",
+    "Email",
+    "Gmail",
+    "Google",
+    "Api",
+    "Management"
+  ],
+  "author": "Harshil Sagar",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "googleapis": "^39.2.0",
+    "install": "^0.13.0",
+    "node-gmail-api": "^1.0.0",
+    "npm": "^6.14.9",
+    "passport": "^0.4.1",
+    "passport-google-oauth": "^2.0.0"
+  }
+}
